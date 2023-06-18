@@ -26,6 +26,9 @@ class BankAccount
     }
 }
 
+$account = new BankAccount();
+$account->accountNumber = 1;
+$account->balance = 100;
 echo $account->deposit(300);
 echo PHP_EOL;
 
@@ -42,6 +45,7 @@ class BankAccountChain
         if ($amount > 0) {
             $this->balance += $amount;
         }
+        return $this;
     }
 
 
@@ -50,16 +54,16 @@ class BankAccountChain
     {
         if ($amount <= $this->balance) {
             $this->balance -= $amount;
-            return $this;
+            return true;
         }
         return $this;
-
     }
+
 }
 
+$accountChain = new BankAccountChain();
 
-echo $account->deposit(100)
-    ->deposit(200)
-    ->deposit(300);
+$accountChain->deposit(100)->withdraw(10);
+echo  $accountChain->balance;
 
 echo PHP_EOL;
